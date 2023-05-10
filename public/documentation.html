@@ -1,16 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Movie API Documentation</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Movie API Documentation</title>
-</head>
+  <body class="">
+    <main class="container">
+      <h1>Movie API Documentation</h1>
 
-<body>
+      <p class="my-3">
+        This API will provide interaction with a movie database and a user
+        database.
+      </p>
 
-    This API will provide interaction with a movie database and a user database.
+      <h2>API Reference</h2>
 
-</body>
+      <h3>Movie Database</h3>
 
+      <table class="table table-striped table-sm">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Method</th>
+            <th scope="col">URL endpoint</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody class="align-middle">
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse1"
+                data-target="#collapse1"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>GET</td>
+            <td>/movies</td>
+            <td>returns a list of all movies</td>
+          </tr>
+          <tr class="collapse" id="collapse1">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp>GET /movies</samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>Response fields:</b><br>
+                    name (default) - <i>string</i><br>
+                    directors (default) - <i>array</i><br>
+                    genres (default) - <i>array</i><br>
+                  </div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>[
+  {
+    "title": "Everything Everywhere All at Once",
+    "directors": [ "Daniel Kwan", "Daniel Scheinert" ],
+    "genres": ["Action", "Adventure", "Comedy"]
+  },
+  {
+    "title": "All Quiet on the Western Front",
+    "directors": [ "Edward Berger" ],
+    "genres": [ "Action", "Drama", "War" ]
+  },
+  ...
+]</samp></pre>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse2"
+                data-target="#collapse2"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>GET</td>
+            <td>/movies/[title]</td>
+            <td>returns data about a single movie by title</td>
+          </tr>
+          <tr class="collapse" id="collapse2">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameter:</b><br>
+                    title (required) - <i>string</i>, full title of the movie
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp>
+                      GET /movies/Everything%20Everywhere%20All%20at%20Once
+                    </samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>Response fields:</b><br>
+                    name (default) - <i>string</i><br>
+                    directors (default) - <i>array</i><br>
+                    genres (default) - <i>array</i><br>
+                  </div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>{
+  "title": "Everything Everywhere All at Once",
+  "directors": [ "Daniel Kwan", "Daniel Scheinert" ],
+  "genres": [ "Action", "Adventure", "Comedy" ]
+}</samp></pre>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse3"
+                data-target="#collapse3"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>GET</td>
+            <td>/genres/[name]</td>
+            <td>returns data about a genre by name</td>
+          </tr>
+          <tr class="collapse" id="collapse3">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameter:</b><br>
+                    genre (required) - <i>string</i>
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp> GET /genres/Action </samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div><b>Format:</b> JSON</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse4"
+                data-target="#collapse4"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>GET</td>
+            <td>/directors/[name]</td>
+            <td>returns data about a director by name</td>
+          </tr>
+          <tr class="collapse" id="collapse4">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameter:</b><br>
+                    director (required) - <i>string</i>
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp> GET /directors/Daniel%20Kwan </samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div><b>Format:</b> JSON</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>User Database</h3>
+
+      <table class="table table-striped table-sm">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Method</th>
+            <th scope="col">URL endpoint</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody class="align-middle">
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse5"
+                data-target="#collapse5"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>POST</td>
+            <td>/users</td>
+            <td>adds a new user</td>
+          </tr>
+          <tr class="collapse" id="collapse5">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>JSON parameters:</b><br>
+                    name (required) - <i>string</i>, username
+                  </div>
+                  <div>
+                    <b>Example request body:</b><br>
+                    <pre><samp>{
+  "name": "Claire"
+}</samp></pre>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div>JSON of user data</div>
+                  <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>{
+  "name": "Claire",
+  "id": "a9faacde-b747-42b6-a50f-19160682d073",
+  "favorites": []
+}</samp></pre>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse6"
+                data-target="#collapse6"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>PUT</td>
+            <td>/users/[id]</td>
+            <td>updates user data by id</td>
+          </tr>
+          <tr class="collapse" id="collapse6">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameter:</b><br>
+                    id (required) - <i>string</i>, user ID
+                  </div>
+                  <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>JSON parameters:</b><br>
+                    the to-be-updated fields
+                  </div>
+                  <div><b>Example request body:</b></div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div>the updated user data</div>
+                  <div><b>Format:</b> JSON</div>
+                  <div><b>Example response:</b></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse7"
+                data-target="#collapse7"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>POST</td>
+            <td>/users/[id]/movies/[name]</td>
+            <td>adds a movie to a user's list of favorites</td>
+          </tr>
+          <tr class="collapse" id="collapse7">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameters:</b><br>
+                    id (required) - <i>string</i>, user ID<br>
+                    title (required) - <i>string</i>, movie title
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp> POST /users/1234/movies/Elivs </samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div>updated user's favorites list</div>
+                  <div><b>Format:</b> array</div>
+                  <div>
+                    <b>Example response:</b><br>
+                    <samp>[ "The Banshees of Inisherin", "Elvis" ]</samp>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse8"
+                data-target="#collapse8"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>DELETE</td>
+            <td>/users/[id]/movies/[name]</td>
+            <td>removes a movie from a user's list of favorites</td>
+          </tr>
+          <tr class="collapse" id="collapse8">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameters:</b><br>
+                    id (required) - <i>string</i>, user ID<br>title (required)
+                    - <i>string</i>, movie title
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp> DELETE /users/1234/movies/Elivs </samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div>updated user's favorites list</div>
+                  <div><b>Format:</b> array</div>
+                  <div>
+                    <b>Example response:</b><br>
+                    <samp>[ "The Banshees of Inisherin" ]</samp>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="collapse9"
+                data-target="#collapse9"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>DELETE</td>
+            <td>/users/[id]</td>
+            <td>removes a user by id</td>
+          </tr>
+          <tr class="collapse" id="collapse9">
+            <td></td>
+            <td colspan="3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameters:</b><br>
+                    id (required) - <i>string</i>, user ID
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp> DELETE /users/1234 </samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div>a message confirming the deletion</div>
+                  <div><b>Format:</b> text</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
