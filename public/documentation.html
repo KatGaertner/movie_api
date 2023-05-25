@@ -12,6 +12,10 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link
+    rel="stylesheet"
+    href="styles.css"
+  />
     <title>Movie API Documentation</title>
   </head>
 
@@ -56,9 +60,8 @@
             <td>returns a list of all movies</td>
           </tr>
           <tr class="collapse" id="collapse1">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
@@ -66,33 +69,39 @@
                     <samp>GET /movies</samp>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6">  
                   <h4>Response</h4>
                   <div><b>Format:</b> JSON</div>
-                  <div>
-                    <b>Response fields:</b><br>
-                    name (default) - <i>string</i><br>
-                    directors (default) - <i>array</i><br>
-                    genres (default) - <i>array</i><br>
-                  </div>
                   <div>
                     <b>Example response:</b>
                     <pre><samp>[
   {
-    "title": "Everything Everywhere All at Once",
-    "directors": [ "Daniel Kwan", "Daniel Scheinert" ],
-    "genres": ["Action", "Adventure", "Comedy"]
-  },
-  {
-    "title": "All Quiet on the Western Front",
-    "directors": [ "Edward Berger" ],
-    "genres": [ "Action", "Drama", "War" ]
+    "_id": "6467dcfaaf8963a497ac08bb",
+    "title": "Star Wars: Episode VI - Return of the Jedi",
+    "summary": "After rescuing Han Solo from Jabba the Hutt, the Rebels attempt to destroy the second Death Star, while Luke struggles to help Darth Vader back from the dark side.",
+    "featured": false,
+    "imageURL": "starwarsepisodeVI.png",
+    "genres": [
+      {
+        "_id": "646f9a2bff48c939d6954378",
+        "name": "Sci-Fi",
+        "description": "Science fiction is a genre of speculative fiction that deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life."
+      }
+    ],
+    "directors": [
+      {
+        "_id": "646f9a2bff48c939d6954379",
+        "name": "George Lucas",
+        "biography": "George Lucas is an American filmmaker.",
+        "birthyear": 1944
+      }
+    ]
   },
   ...
 ]</samp></pre>
-                  </div>
                 </div>
               </div>
+            </div>
             </td>
           </tr>
           <tr>
@@ -113,9 +122,8 @@
             <td>returns data about a single movie by title</td>
           </tr>
           <tr class="collapse" id="collapse2">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
@@ -125,7 +133,7 @@
                   <div>
                     <b>Example request:</b><br>
                     <samp>
-                      GET /movies/Everything%20Everywhere%20All%20at%20Once
+                      GET /movies/The%20Shining
                     </samp>
                   </div>
                 </div>
@@ -133,18 +141,32 @@
                   <h4>Response</h4>
                   <div><b>Format:</b> JSON</div>
                   <div>
-                    <b>Response fields:</b><br>
-                    name (default) - <i>string</i><br>
-                    directors (default) - <i>array</i><br>
-                    genres (default) - <i>array</i><br>
-                  </div>
-                  <div>
                     <b>Example response:</b>
-                    <pre><samp>{
-  "title": "Everything Everywhere All at Once",
-  "directors": [ "Daniel Kwan", "Daniel Scheinert" ],
-  "genres": [ "Action", "Adventure", "Comedy" ]
-}</samp></pre>
+                    <pre><samp>[
+  {
+    "_id": "6467dcfaaf8963a497ac08b5",
+    "title": "The Shining",
+    "summary": "A family heads to an isolated hotel for the winter where a sinister presence influences the father into violence, while his psychic son sees horrific forebodings from both past and future.",
+    "featured": false,
+    "imageURL": "theshining.png",
+    "genres": [
+      {
+        "_id": "646f9d71ff48c939d69543a2",
+        "name": "Horror",
+        "description": "Horror genre is a type of fiction that aims to create fear, dread, disgust, and terror in the audience."
+      }
+    ],
+    "directors": [
+      {
+        "_id": "646f9d71ff48c939d69543a3",
+        "name": "Stanley Kubrick",
+        "biography": "Stanley Kubrick was an American film director, producer and screenwriter.",
+        "birthyear": 1928,
+        "deathyear": 1999
+      }
+    ]
+  }
+]</samp></pre>
                   </div>
                 </div>
               </div>
@@ -168,9 +190,8 @@
             <td>returns data about a genre by name</td>
           </tr>
           <tr class="collapse" id="collapse3">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
@@ -179,12 +200,22 @@
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> GET /genres/Action </samp>
+                    <samp> GET /genres/Sci-Fi </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <h4>Response</h4>
                   <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>[
+  {
+    "_id": "6467dd4faf8963a497ac08bf",
+    "name": "Sci-Fi",
+    "description": "Science fiction is a genre of speculative fiction that deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life."
+  }
+]</samp></pre>
+                  </div>
                 </div>
               </div>
             </td>
@@ -207,9 +238,8 @@
             <td>returns data about a director by name</td>
           </tr>
           <tr class="collapse" id="collapse4">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
@@ -218,12 +248,23 @@
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> GET /directors/Daniel%20Kwan </samp>
+                    <samp> GET /directors/George%20Lucas </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <h4>Response</h4>
                   <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>[
+  {
+    "_id": "6467dd88af8963a497ac08c6",
+    "name": "George Lucas",
+    "biography": "George Lucas is an American filmmaker.",
+    "birthyear": 1944
+  }
+]</samp></pre>
+                  </div>
                 </div>
               </div>
             </td>
@@ -261,20 +302,24 @@
             <td>adds a new user</td>
           </tr>
           <tr class="collapse" id="collapse5">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div><b>Format:</b> JSON</div>
                   <div>
                     <b>JSON parameters:</b><br>
-                    name (required) - <i>string</i>, username
+                    name (required) - <i>string</i>, username<br>
+                    password (required) - <i>string</i><br>
+                    email (required) - <i>string</i><br>
+                    birthday - <i>Date</i>
                   </div>
                   <div>
                     <b>Example request body:</b><br>
                     <pre><samp>{
-  "name": "Claire"
+  "name": "Alice",
+  "password": "testpassword",
+  "email": "testemail@email.com"
 }</samp></pre>
                   </div>
                 </div>
@@ -285,9 +330,12 @@
                   <div>
                     <b>Example response:</b>
                     <pre><samp>{
-  "name": "Claire",
-  "id": "a9faacde-b747-42b6-a50f-19160682d073",
-  "favorites": []
+  "name": "Alice",
+  "password": "testpassword",
+  "email": "testemail@email.com",
+  "favorites": [],
+  "_id": "646f50fb47f96ed7d4af88f2",
+  "__v": 0
 }</samp></pre>
                   </div>
                 </div>
@@ -308,31 +356,49 @@
               </button>
             </td>
             <td>PUT</td>
-            <td>/users/[id]</td>
-            <td>updates user data by id</td>
+            <td>/users/[name]</td>
+            <td>updates user data by username</td>
           </tr>
           <tr class="collapse" id="collapse6">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
                     <b>URL parameter:</b><br>
-                    id (required) - <i>string</i>, user ID
+                    name (required) - <i>string</i>, username
                   </div>
                   <div><b>Format:</b> JSON</div>
                   <div>
                     <b>JSON parameters:</b><br>
-                    the to-be-updated fields
+                    name - <i>string</i>, username<br>
+                    password - <i>string</i><br>
+                    email - <i>string</i><br>
+                    birthday - <i>Date</i>
                   </div>
-                  <div><b>Example request body:</b></div>
+                  <div>
+                    <b>Example request body:</b><br>
+                    <pre><samp>{
+  "name": "Alice",
+  "email": "newtestemail@email.com"
+}</samp></pre>
+                  </div>
                 </div>
                 <div class="col-lg-6">
                   <h4>Response</h4>
                   <div>the updated user data</div>
                   <div><b>Format:</b> JSON</div>
-                  <div><b>Example response:</b></div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>{
+  "_id": "646f4e9f43ac1fbae33beb31",
+  "name": "Alice",
+  "password": "testpassword",
+  "email": "newtestemail@email.com",
+  "favorites": [],
+  "__v": 0
+}</samp></pre>
+                  </div>
                 </div>
               </div>
             </td>
@@ -351,23 +417,22 @@
               </button>
             </td>
             <td>POST</td>
-            <td>/users/[id]/movies/[name]</td>
+            <td>/users/[name]/movies/[id]</td>
             <td>adds a movie to a user's list of favorites</td>
           </tr>
           <tr class="collapse" id="collapse7">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
                     <b>URL parameters:</b><br>
-                    id (required) - <i>string</i>, user ID<br>
-                    title (required) - <i>string</i>, movie title
+                    name (required) - <i>string</i>, username<br>
+                    id (required) - <i>number</i>, movie ID
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> POST /users/1234/movies/Elivs </samp>
+                    <samp> POST /users/Luke/movies/6467dcfaaf8963a497ac08b5 </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -376,7 +441,7 @@
                   <div><b>Format:</b> array</div>
                   <div>
                     <b>Example response:</b><br>
-                    <samp>[ "The Banshees of Inisherin", "Elvis" ]</samp>
+                    <samp>[ "6467dcfaaf8963a497ac08b9", "6467dcfaaf8963a497ac08ba", "6467dcfaaf8963a497ac08b5" ]</samp>
                   </div>
                 </div>
               </div>
@@ -396,23 +461,22 @@
               </button>
             </td>
             <td>DELETE</td>
-            <td>/users/[id]/movies/[name]</td>
+            <td>/users/[name]/movies/[id]</td>
             <td>removes a movie from a user's list of favorites</td>
           </tr>
           <tr class="collapse" id="collapse8">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
                     <b>URL parameters:</b><br>
-                    id (required) - <i>string</i>, user ID<br>title (required)
-                    - <i>string</i>, movie title
+                    name (required) - <i>string</i>, username<br>
+                    id (required) - <i>number</i>, movie ID
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> DELETE /users/1234/movies/Elivs </samp>
+                    <samp> DELETE /users/Luke/movies/6467dcfaaf8963a497ac08b5 </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -421,7 +485,7 @@
                   <div><b>Format:</b> array</div>
                   <div>
                     <b>Example response:</b><br>
-                    <samp>[ "The Banshees of Inisherin" ]</samp>
+                    <samp>[ "6467dcfaaf8963a497ac08b9", "6467dcfaaf8963a497ac08ba" ]</samp>
                   </div>
                 </div>
               </div>
@@ -441,22 +505,21 @@
               </button>
             </td>
             <td>DELETE</td>
-            <td>/users/[id]</td>
+            <td>/users/[name]</td>
             <td>removes a user by id</td>
           </tr>
           <tr class="collapse" id="collapse9">
-            <td></td>
-            <td colspan="3">
-              <div class="row">
+            <td colspan="4">
+              <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
                   <div>
                     <b>URL parameters:</b><br>
-                    id (required) - <i>string</i>, user ID
+                    name (required) - <i>string</i>, username
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> DELETE /users/1234 </samp>
+                    <samp> DELETE /users/Alice </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
