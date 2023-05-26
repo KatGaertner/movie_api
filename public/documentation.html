@@ -309,7 +309,7 @@
                   <div><b>Format:</b> JSON</div>
                   <div>
                     <b>JSON parameters:</b><br>
-                    name (required) - <i>string</i>, username<br>
+                    name (required) - <i>string</i>, unique username<br>
                     password (required) - <i>string</i><br>
                     email (required) - <i>string</i><br>
                     birthday - <i>Date</i>
@@ -356,8 +356,8 @@
               </button>
             </td>
             <td>PUT</td>
-            <td>/users/[name]</td>
-            <td>updates user data by username</td>
+            <td>/users/[ID]</td>
+            <td>updates user data by user ID</td>
           </tr>
           <tr class="collapse" id="collapse6">
             <td colspan="4">
@@ -366,12 +366,12 @@
                   <h4>Request</h4>
                   <div>
                     <b>URL parameter:</b><br>
-                    name (required) - <i>string</i>, username
+                    ID (required) - <i>number</i>, user ID
                   </div>
                   <div><b>Format:</b> JSON</div>
                   <div>
                     <b>JSON parameters:</b><br>
-                    name - <i>string</i>, username<br>
+                    name - <i>string</i>, unique username<br>
                     password - <i>string</i><br>
                     email - <i>string</i><br>
                     birthday - <i>Date</i>
@@ -379,7 +379,6 @@
                   <div>
                     <b>Example request body:</b><br>
                     <pre><samp>{
-  "name": "Alice",
   "email": "newtestemail@email.com"
 }</samp></pre>
                   </div>
@@ -391,7 +390,7 @@
                   <div>
                     <b>Example response:</b>
                     <pre><samp>{
-  "_id": "646f4e9f43ac1fbae33beb31",
+  "_id": "646f50fb47f96ed7d4af88f2",
   "name": "Alice",
   "password": "testpassword",
   "email": "newtestemail@email.com",
@@ -417,7 +416,7 @@
               </button>
             </td>
             <td>POST</td>
-            <td>/users/[name]/movies/[id]</td>
+            <td>/users/[userID]/movies/[movieID]</td>
             <td>adds a movie to a user's list of favorites</td>
           </tr>
           <tr class="collapse" id="collapse7">
@@ -427,12 +426,12 @@
                   <h4>Request</h4>
                   <div>
                     <b>URL parameters:</b><br>
-                    name (required) - <i>string</i>, username<br>
-                    id (required) - <i>number</i>, movie ID
+                    userID (required) - <i>number</i>, user ID<br>
+                    movieID (required) - <i>number</i>, movie ID
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> POST /users/Luke/movies/6467dcfaaf8963a497ac08b5 </samp>
+                    <samp> POST /users/64687fdaf5a9c387994faffd/movies/6467dcfaaf8963a497ac08b5 </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -461,7 +460,7 @@
               </button>
             </td>
             <td>DELETE</td>
-            <td>/users/[name]/movies/[id]</td>
+            <td>/users/[userID]/movies/[movieID]</td>
             <td>removes a movie from a user's list of favorites</td>
           </tr>
           <tr class="collapse" id="collapse8">
@@ -471,12 +470,12 @@
                   <h4>Request</h4>
                   <div>
                     <b>URL parameters:</b><br>
-                    name (required) - <i>string</i>, username<br>
-                    id (required) - <i>number</i>, movie ID
+                    userID (required) - <i>number</i>, user ID<br>
+                    movieID (required) - <i>number</i>, movie ID
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> DELETE /users/Luke/movies/6467dcfaaf8963a497ac08b5 </samp>
+                    <samp> DELETE /users/64687fdaf5a9c387994faffd/movies/6467dcfaaf8963a497ac08b5 </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -505,8 +504,8 @@
               </button>
             </td>
             <td>DELETE</td>
-            <td>/users/[name]</td>
-            <td>removes a user by id</td>
+            <td>/users/[ID]</td>
+            <td>removes a user by ID</td>
           </tr>
           <tr class="collapse" id="collapse9">
             <td colspan="4">
@@ -515,11 +514,11 @@
                   <h4>Request</h4>
                   <div>
                     <b>URL parameters:</b><br>
-                    name (required) - <i>string</i>, username
+                    ID (required) - <i>numer</i>, user ID
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp> DELETE /users/Alice </samp>
+                    <samp> DELETE /users/646f50fb47f96ed7d4af88f2 </samp>
                   </div>
                 </div>
                 <div class="col-lg-6">
