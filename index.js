@@ -69,11 +69,11 @@ app.post('/users', (req, res) => {
         });
 });
 
-app.put('/users/:name', (req, res) => {
-    let name = req.params.name;
+app.put('/users/:id', (req, res) => {
+    let userID = req.params.id;
     let data = req.body;
     Users.findOneAndUpdate(
-        { name },
+        { _id: userID },
         {
             $set: {
                 'name': data.name,
@@ -85,7 +85,7 @@ app.put('/users/:name', (req, res) => {
         { new: true }) // to return updated document
         .then((updatedUser) => {
             if (!updatedUser) {
-                res.status(400).send(name + ' not found.');
+                res.status(400).send('User not found.');
             } else {
                 res.status(200).json(updatedUser);
             }
@@ -96,18 +96,18 @@ app.put('/users/:name', (req, res) => {
         });
 });
 
-app.post('/users/:name/movies/:id', (req, res) => {
-    let userName = req.params.name;
-    let movieID = req.params.id;
+app.post('/users/:userid/movies/:movieid', (req, res) => {
+    let userID = req.params.userid;
+    let movieID = req.params.movieid;
     Users.findOneAndUpdate(
-        { name: userName },
+        { _id: userID },
         {
             $addToSet: { favorites: movieID }
         },
         { new: true })
         .then((user) => {
             if (!user) {
-                res.status(400).send(userName + ' not found.');
+                res.status(400).send('User not found.');
             } else {
                 res.status(200).json(user.favorites);
             }
@@ -118,18 +118,18 @@ app.post('/users/:name/movies/:id', (req, res) => {
         });
 });
 
-app.delete('/users/:name/movies/:id', (req, res) => {
-    let userName = req.params.name;
-    let movieID = req.params.id;
+app.delete('/users/:userid/movies/:movieid', (req, res) => {
+    let userID = req.params.userid;
+    let movieID = req.params.movieid;
     Users.findOneAndUpdate(
-        { name: userName },
+        { _id: userID },
         {
             $pull: { favorites: movieID }
         },
         { new: true })
         .then((user) => {
             if (!user) {
-                res.status(400).send(userName + ' not found.');
+                res.status(400).send('User not found.');
             } else {
                 res.status(200).json(user.favorites);
             }
@@ -140,14 +140,14 @@ app.delete('/users/:name/movies/:id', (req, res) => {
         });
 });
 
-app.delete('/users/:name', (req, res) => {
-    let name = req.params.name;
-    Users.findOneAndRemove({ name })
+app.delete('/users/:id', (req, res) => {
+    let userID = req.params.id;
+    Users.findOneAndRemove({ _id: userID })
         .then((user) => {
             if (!user) {
-                res.status(400).send(name + ' not found.');
+                res.status(400).send('User not found.');
             } else {
-                res.status(200).send(name + ' deleted.');
+                res.status(200).send('User deleted.');
             }
         })
         .catch((error) => {
