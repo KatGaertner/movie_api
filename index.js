@@ -45,23 +45,29 @@ app.get('/directors/:director', (req, res) => {
 
 app.post('/users', (req, res) => {
     let newUser = req.body;
-    Users.create({
-        name: newUser.name,
-        password: newUser.password,
-        email: newUser.email,
-        birthday: newUser.birthday
-    })
-        .then((user) => res.status(201).json(user))
-        .catch((error) => {
-            if (error.code === 11000) {
-                res.status(400).send('Username already taken.');
+    Users.findOne({ 'name': newUser.name })
+        .then((user) => {
+            if (user) {
+                res.status(400).send('Name ' + newUser.name + ' already taken.');
             } else {
-                console.error(error);
-                res.status(500).send('Error: ' + error);
+                Users.create({
+                    name: newUser.name,
+                    password: newUser.password,
+                    email: newUser.email,
+                    birthday: newUser.birthday
+                })
+                    .then((user) => res.status(201).json(user))
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).send('Error: ' + error);
+                    });
             }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Error: ' + error);
         });
-}
-);
+});
 
 app.put('/users/:id', (req, res) => {
     let userID = req.params.id;
@@ -85,12 +91,8 @@ app.put('/users/:id', (req, res) => {
             }
         })
         .catch((error) => {
-            if (error.code === 11000) {
-                res.status(400).send('Username already taken.');
-            } else {
-                console.error(error);
-                res.status(500).send('Error: ' + error);
-            }
+            console.log(error);
+            res.status(500).send('Error: ' + error);
         });
 });
 
