@@ -36,19 +36,39 @@ app.get('/', (req, res) => {
 });
 
 app.get('/movies', authParameter, (req, res) => {
-    Movies.find().then((movies) => res.json(movies));
+    Movies.find()
+        .then((movies) => res.status(201).json(movies))
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Error: ' + error);
+        });
 });
 
 app.get('/movies/:title', authParameter, (req, res) => {
-    Movies.find({ 'title': req.params.title }).then((movie) => res.json(movie));
+    Movies.find({ 'title': req.params.title })
+        .then((movie) => res.status(201).json(movie))
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Error: ' + error);
+        });
 });
 
 app.get('/genres/:genre', authParameter, (req, res) => {
-    Genres.find({ 'name': req.params.genre }).then((genre) => res.json(genre));
+    Genres.find({ 'name': req.params.genre })
+        .then((genre) => res.status(201).json(genre))
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Error: ' + error);
+        });
 });
 
 app.get('/directors/:director', authParameter, (req, res) => {
-    Directors.find({ 'name': req.params.director }).then((director) => res.json(director));
+    Directors.find({ 'name': req.params.director })
+        .then((director) => res.status(201).json(director))
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Error: ' + error);
+        });
 });
 
 app.post('/users', (req, res) => {
