@@ -23,23 +23,31 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
+const authParameter = passport.authenticate('jwt', { session: false });
+
 app.get('/', (req, res) => {
     res.send('Some text response');
 });
 
-app.get('/movies', (req, res) => {
+app.get('/movies', authParameter, (req, res) => {
     Movies.find().then((movies) => res.json(movies));
 });
 
-app.get('/movies/:title', (req, res) => {
+app.get('/movies/:title', authParameter, (req, res) => {
     Movies.find({ 'title': req.params.title }).then((movie) => res.json(movie));
 });
 
-app.get('/genres/:genre', (req, res) => {
+app.get('/genres/:genre', authParameter, (req, res) => {
     Genres.find({ 'name': req.params.genre }).then((genre) => res.json(genre));
 });
 
-app.get('/directors/:director', (req, res) => {
+app.get('/directors/:director', authParameter, (req, res) => {
     Directors.find({ 'name': req.params.director }).then((director) => res.json(director));
 });
 
@@ -69,7 +77,7 @@ app.post('/users', (req, res) => {
         });
 });
 
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id', authParameter, (req, res) => {
     let userID = req.params.id;
     let data = req.body;
     Users.findOneAndUpdate(
@@ -96,7 +104,7 @@ app.put('/users/:id', (req, res) => {
         });
 });
 
-app.post('/users/:userid/movies/:movieid', (req, res) => {
+app.post('/users/:userid/movies/:movieid', authParameter, (req, res) => {
     let userID = req.params.userid;
     let movieID = req.params.movieid;
     Users.findOneAndUpdate(
@@ -118,7 +126,7 @@ app.post('/users/:userid/movies/:movieid', (req, res) => {
         });
 });
 
-app.delete('/users/:userid/movies/:movieid', (req, res) => {
+app.delete('/users/:userid/movies/:movieid', authParameter, (req, res) => {
     let userID = req.params.userid;
     let movieID = req.params.movieid;
     Users.findOneAndUpdate(
@@ -140,7 +148,7 @@ app.delete('/users/:userid/movies/:movieid', (req, res) => {
         });
 });
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', authParameter, (req, res) => {
     let userID = req.params.id;
     Users.findOneAndRemove({ _id: userID })
         .then((user) => {
