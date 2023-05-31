@@ -115,7 +115,10 @@ app.post('/users',
                         email: newUser.email,
                         birthday: newUser.birthday
                     })
-                        .then((user) => res.status(201).json(user))
+                        .then((user) => {
+                            let { password, ...cleanData } = user._doc;
+                            res.status(201).json(cleanData);
+                        })
                         .catch((error) => {
                             console.error(error);
                             res.status(500).send('Error: ' + error);
@@ -161,7 +164,8 @@ app.put('/users/:id', authParameter,
                 if (!updatedUser) {
                     return res.status(400).send('User not found.');
                 }
-                return res.status(200).json(updatedUser);
+                let { password, ...cleanData } = updatedUser._doc;
+                return res.status(200).json(cleanData);
             })
             .catch((error) => {
                 console.log(error);
