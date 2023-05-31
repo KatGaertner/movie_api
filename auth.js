@@ -1,7 +1,3 @@
-// In your new “auth.js” file, create a new “/login” endpoint for registered
-// users that contains logic for authenticating users with basic HTTP authentication
-// and generating a JWT token for authenticating future requests.
-
 const jwtSecret = 'your_jwt_secret';
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
