@@ -138,10 +138,15 @@ app.put('/users/:id', authParameter,
         check('birthday', 'Birthday has to be valid.').isDate().optional({ checkFalsy: true })
     ],
     (req, res) => {
+        if (req.user.id !== req.params.id) {
+            return res.status(401).send('Unauthorized.');
+        }
+
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
         }
+
         let userID = req.params.id;
         let rawData = req.body;
 
@@ -165,9 +170,13 @@ app.put('/users/:id', authParameter,
     });
 
 app.post('/users/:userid/movies/:movieid', authParameter, (req, res) => {
+    if (req.user.id !== req.params.id) {
+        return res.status(401).send('Unauthorized.');
+    }
+
     let userID = req.params.userid;
     let movieID = req.params.movieid;
-    Users.findOneAndUpdate(
+    return Users.findOneAndUpdate(
         { _id: userID },
         {
             $addToSet: { favorites: movieID }
@@ -187,9 +196,13 @@ app.post('/users/:userid/movies/:movieid', authParameter, (req, res) => {
 });
 
 app.delete('/users/:userid/movies/:movieid', authParameter, (req, res) => {
+    if (req.user.id !== req.params.id) {
+        return res.status(401).send('Unauthorized.');
+    }
+
     let userID = req.params.userid;
     let movieID = req.params.movieid;
-    Users.findOneAndUpdate(
+    return Users.findOneAndUpdate(
         { _id: userID },
         {
             $pull: { favorites: movieID }
@@ -209,8 +222,12 @@ app.delete('/users/:userid/movies/:movieid', authParameter, (req, res) => {
 });
 
 app.delete('/users/:id', authParameter, (req, res) => {
+    if (req.user.id !== req.params.id) {
+        return res.status(401).send('Unauthorized.');
+    }
+
     let userID = req.params.id;
-    Users.findOneAndRemove({ _id: userID })
+    return Users.findOneAndRemove({ _id: userID })
         .then((user) => {
             if (!user) {
                 res.status(400).send('User not found.');
