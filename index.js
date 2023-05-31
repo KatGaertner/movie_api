@@ -143,7 +143,11 @@ app.put('/users/:id', authParameter,
             return res.status(422).json({ errors: errors.array() });
         }
         let userID = req.params.id;
-        let data = req.body;
+        let rawData = req.body;
+
+        // only the data included in the request should be updated, but the password must be hashed, if it exists
+        let data = { ...rawData, ...(rawData.password ? { password : Users.hashPassword(rawData.password) } : {}) };
+
         Users.findOneAndUpdate(
             { _id: userID },
             { $set: data },
