@@ -89,6 +89,7 @@ app.get('/directors/:director', authParameter, (req, res) => {
 
 app.post('/users', (req, res) => {
     let newUser = req.body;
+    let hashedPassword = Users.hashPassword(newUser.password);
     Users.findOne({ 'name': newUser.name })
         .then((user) => {
             if (user) {
@@ -96,7 +97,7 @@ app.post('/users', (req, res) => {
             } else {
                 Users.create({
                     name: newUser.name,
-                    password: newUser.password,
+                    password: hashedPassword,
                     email: newUser.email,
                     birthday: newUser.birthday
                 })
