@@ -104,7 +104,7 @@ app.post('/users',
         }
         let newUser = req.body;
         let hashedPassword = Users.hashPassword(newUser.password);
-        Users.findOne({ 'name': newUser.name })
+        return Users.findOne({ 'name': newUser.name })
             .then((user) => {
                 if (user) {
                     res.status(400).send('Name ' + newUser.name + ' already taken.');
@@ -148,16 +148,15 @@ app.put('/users/:id', authParameter,
         // only the data included in the request should be updated, but the password must be hashed, if it exists
         let data = { ...rawData, ...(rawData.password ? { password : Users.hashPassword(rawData.password) } : {}) };
 
-        Users.findOneAndUpdate(
+        return Users.findOneAndUpdate(
             { _id: userID },
             { $set: data },
             { new: true }) // to return updated document
             .then((updatedUser) => {
                 if (!updatedUser) {
                     return res.status(400).send('User not found.');
-                } else {
-                    return res.status(200).json(updatedUser);
                 }
+                return res.status(200).json(updatedUser);
             })
             .catch((error) => {
                 console.log(error);

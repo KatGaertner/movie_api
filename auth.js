@@ -22,7 +22,7 @@ module.exports = (router) => {
                     user
                 });
             }
-            req.login(user, { session: false }, (error) => {
+            return req.login(user, { session: false }, (error) => {
                 if (error) {
                     return res.send(error);
                 }
