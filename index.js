@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const { check, validationResult } = require('express-validator');
 
 const port = 8080;
 
@@ -87,59 +88,78 @@ app.get('/directors/:director', authParameter, (req, res) => {
         });
 });
 
-app.post('/users', (req, res) => {
-    let newUser = req.body;
-    let hashedPassword = Users.hashPassword(newUser.password);
-    Users.findOne({ 'name': newUser.name })
-        .then((user) => {
-            if (user) {
-                res.status(400).send('Name ' + newUser.name + ' already taken.');
-            } else {
-                Users.create({
-                    name: newUser.name,
-                    password: hashedPassword,
-                    email: newUser.email,
-                    birthday: newUser.birthday
-                })
-                    .then((user) => res.status(201).json(user))
-                    .catch((error) => {
-                        console.error(error);
-                        res.status(500).send('Error: ' + error);
-                    });
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send('Error: ' + error);
-        });
-});
+app.post('/users',
+    [
+        check('name', 'Username has to have at least 5 characters.').trim().isLength({ min: 5 }),
+        check('name', 'Username can only contain alphanumeric characters.').trim().isAlphanumeric(),
+        check('password', 'Password has to have at least 8 characters.').isLength({ min: 8 }),
+        check('email', 'Email has to be valid.').trim().isEmail(),
+        // checkFalsy: true allows birthday to be "" or null, etc
+        check('birthday', 'Birthday has to be valid.').isDate().optional({ checkFalsy: true })
+    ],
+    (req, res) => {
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        let newUser = req.body;
+        let hashedPassword = Users.hashPassword(newUser.password);
+        Users.findOne({ 'name': newUser.name })
+            .then((user) => {
+                if (user) {
+                    res.status(400).send('Name ' + newUser.name + ' already taken.');
+                } else {
+                    Users.create({
+                        name: newUser.name,
+                        password: hashedPassword,
+                        email: newUser.email,
+                        birthday: newUser.birthday
+                    })
+                        .then((user) => res.status(201).json(user))
+                        .catch((error) => {
+                            console.error(error);
+                            res.status(500).send('Error: ' + error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).send('Error: ' + error);
+            });
+    });
 
-app.put('/users/:id', authParameter, (req, res) => {
-    let userID = req.params.id;
-    let data = req.body;
-    Users.findOneAndUpdate(
-        { _id: userID },
-        {
-            $set: {
-                'name': data.name,
-                'password': data.password,
-                'email': data.email,
-                'birthday': data.birthday
-            }
-        },
-        { new: true }) // to return updated document
-        .then((updatedUser) => {
-            if (!updatedUser) {
-                res.status(400).send('User not found.');
-            } else {
-                res.status(200).json(updatedUser);
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send('Error: ' + error);
-        });
-});
+app.put('/users/:id', authParameter,
+    [
+        check('name', 'Username has to have at least 5 characters.').trim().isLength({ min: 5 }).optional(),
+        check('name', 'Username can only contain alphanumeric characters.').trim().isAlphanumeric().optional(),
+        check('password', 'Password has to have at least 8 characters.').isLength({ min: 8 }).optional(),
+        check('email', 'Email has to be valid.').trim().isEmail().optional(),
+        // checkFalsy: true allows birthday to be "" or null, etc
+        check('birthday', 'Birthday has to be valid.').isDate().optional({ checkFalsy: true })
+    ],
+    (req, res) => {
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        let userID = req.params.id;
+        let data = req.body;
+        Users.findOneAndUpdate(
+            { _id: userID },
+            { $set: data },
+            { new: true }) // to return updated document
+            .then((updatedUser) => {
+                if (!updatedUser) {
+                    return res.status(400).send('User not found.');
+                } else {
+                    return res.status(200).json(updatedUser);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                return res.status(500).send('Error: ' + error);
+            });
+    });
 
 app.post('/users/:userid/movies/:movieid', authParameter, (req, res) => {
     let userID = req.params.userid;
