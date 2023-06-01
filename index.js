@@ -7,8 +7,6 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 const { check, validationResult } = require('express-validator');
 
-const port = 8080;
-
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
@@ -250,6 +248,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
-    console.log('Listening on port ' + port);
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+    console.log('Listening on Port ' + port);
 });
