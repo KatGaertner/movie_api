@@ -11,4 +11,18 @@ The project utilizes:
 - Passport with JWT
 - express-validator 
 
+# Overview of the Endpoints
+
+| Method   | URL endpoint                         | Description                                     |
+|----------|--------------------------------------|-------------------------------------------------|
+|  GET     | /movies                              | returns a list of all movies                    |
+|  GET     | /movies/\[title\]                    | returns data about a single movie by title      |
+|  GET     | /genres/\[name\]                     | returns data about a genre by name              |
+|  GET     | /directors/\[name\]                  | returns data about a director by name           |
+|  POST    | /users                               | adds a new user                                 |
+|  PUT     | /users/\[ID\]                        | updates user data by user ID                    |
+|  POST    | /users/\[userID\]/movies/\[movieID\] | adds a movie to a user's list of favorites      |
+|  DELETE  | /users/\[userID\]/movies/\[movieID\] | removes a movie from a user's list of favorites |
+|  DELETE  | /users/\[ID\]                        | removes a user by ID                            |
+
 # Project status
