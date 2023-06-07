@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
     res.send('Some text response');
 });
 
-app.get('/movies', authParameter, (req, res) => {
+app.get('/movies', (req, res) => {
     Movies.find()
         .then((movies) => res.status(201).json(movies))
         .catch((error) => {
