@@ -406,6 +406,59 @@
                 type="button"
                 data-toggle="collapse"
                 aria-expanded="false"
+                aria-controls="collapse10"
+                data-target="#collapse10"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                +
+              </button>
+            </td>
+            <td>POST</td>
+            <td>/login?Username=[name]&Password=[password]</td>
+            <td>logs in user</td>
+          </tr>
+          <tr class="collapse" id="collapse10">
+            <td colspan="4">
+              <div class="container overflow-auto row">
+                <div class="col-lg-6">
+                  <h4>Request</h4>
+                  <div>
+                    <b>URL parameter:</b><br>
+                    name (required) - <i>string</i>, username<br>
+                    password - <i>string</i>
+                  </div>
+                  <div>
+                    <b>Example request:</b><br>
+                    <samp>/login?Username=Alice&Password=mypassword</samp>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h4>Response</h4>
+                  <div>user data and JSON Web Token</div>
+                  <div><b>Format:</b> JSON</div>
+                  <div>
+                    <b>Example response:</b>
+                    <pre><samp>{
+  "user": {
+    "_id": "646f50fb47f96ed7d4af88f2",
+    "name": "Alice",
+    "email": "testemail@email.com",
+    "favorites": [],
+    "__v": 0
+  },
+  "token": "eyJhbGciOiPIUzI1NiIsBnR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc5ZTE3N2IzZjc0ZDlmMTktNWUwZjUiLCJuYW1lIjoiUG9zdG1hbiIsInBhc3N3b3JkIjoiJDJiJDEwJElhS1UvV1o2VWJ6WlRsdEszeUxOS2VvNUNRcEZtNFpjWUE1Vjg3MUNzQVlmc1M1NFBSTjVLIiwiZW1haWwiOiJ0ZXN0ZW1haWxAZW1haWwuY29tIiwiYmlydGhkYXkiOm51bGwsImZhdm9yaXRlcyI6W10sIl9fdiI6MCwiaWF0IjoxNjg2MTI5OTgyLCJleHAiZeE2ODY3MzQ3ODIsInN1YiI6IlBvc3RtYW4ifQ.G7WTgf5NhL8lTHMZslg9tZlyLrkj0zIcJTsmpr332ck"
+}</samp></pre>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
                 aria-controls="collapse7"
                 data-target="#collapse7"
                 class="btn btn-outline-secondary btn-sm"
