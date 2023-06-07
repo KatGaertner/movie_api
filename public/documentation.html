@@ -414,7 +414,7 @@
               </button>
             </td>
             <td>POST</td>
-            <td>/login?Username=[name]&Password=[password]</td>
+            <td>/login</td>
             <td>logs in user</td>
           </tr>
           <tr class="collapse" id="collapse10">
@@ -422,14 +422,18 @@
               <div class="container overflow-auto row">
                 <div class="col-lg-6">
                   <h4>Request</h4>
+                  <div><b>Format:</b> JSON</div>
                   <div>
-                    <b>URL parameter:</b><br>
-                    name (required) - <i>string</i>, username<br>
+                    <b>JSON parameter:</b><br>
+                    username (required) - <i>string</i>, username<br>
                     password - <i>string</i>
                   </div>
                   <div>
                     <b>Example request:</b><br>
-                    <samp>/login?Username=Alice&Password=mypassword</samp>
+                    <pre><samp>{
+  "username": "Alice",
+  "password": "mynewpassword"
+}</samp></pre>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -439,7 +443,7 @@
                   <div>
                     <b>Example response:</b>
                     <pre><samp>{
-  "user": {
+  "userData": {
     "_id": "646f50fb47f96ed7d4af88f2",
     "name": "Alice",
     "email": "testemail@email.com",
