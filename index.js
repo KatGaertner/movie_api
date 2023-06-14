@@ -140,7 +140,7 @@ app.put('/users/:id', authParameter,
         check('birthday', 'Birthday has to be valid.').isDate().optional({ checkFalsy: true })
     ],
     (req, res) => {
-        if (req.user.id !== req.params.id) {
+        if (req.user.id !== req.params.userid) {
             return res.status(401).send('Unauthorized.');
         }
 
@@ -173,7 +173,7 @@ app.put('/users/:id', authParameter,
     });
 
 app.post('/users/:userid/movies/:movieid', authParameter, (req, res) => {
-    if (req.user.id !== req.params.id) {
+    if (req.user.id !== req.params.userid) {
         return res.status(401).send('Unauthorized.');
     }
 
@@ -199,7 +199,7 @@ app.post('/users/:userid/movies/:movieid', authParameter, (req, res) => {
 });
 
 app.delete('/users/:userid/movies/:movieid', authParameter, (req, res) => {
-    if (req.user.id !== req.params.id) {
+    if (req.user.id !== req.params.userid) {
         return res.status(401).send('Unauthorized.');
     }
 
@@ -225,7 +225,7 @@ app.delete('/users/:userid/movies/:movieid', authParameter, (req, res) => {
 });
 
 app.delete('/users/:id', authParameter, (req, res) => {
-    if (req.user.id !== req.params.id) {
+    if (req.user.id !== req.params.userid) {
         return res.status(401).send('Unauthorized.');
     }
 
