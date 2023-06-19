@@ -1,6 +1,8 @@
 # movieAPI
 
-A RESTful API that will provide interaction with a movie database and a user database. The API offers endpoints for information on certain movies, directors and genres, as well as a list of all movies. Users can sign up for an account, log in, add and remove movies from a list of their favorites, as well as change or delete their profile.
+A RESTful API that will provide interaction with a movie database and a user database. The API offers endpoints for information on movies, directors and genres, as well as interactions with a user database, like signing up, logging in and changing user data. All endpoints and functions are listed in [the overview](#Overview-of-the-Endpoints).
+
+The API is currently deployed on Heroku and will be used in the [myFlix App](https://github.com/KatGaertner/myFlix).
 
 # Technologies
 
@@ -9,7 +11,9 @@ The project utilizes:
 - Express.js
 - MongoDB and Mongoose ODM
 - Passport with JWT
-- express-validator 
+- express-validator
+- MongoDB Atlas for hosting the database
+- Heroku for deployment of the API
 
 # Overview of the Endpoints
 
@@ -26,3 +30,5 @@ The project utilizes:
 |  DELETE  | /users/\[ID\]                        | removes a user by ID                            |
 
 # Project status
+
+This project was made within the scope of a Web Development course as a portfolio project. As such, it is finished for now.
