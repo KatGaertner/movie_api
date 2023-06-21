@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
     res.send('Some text response');
 });
 
-app.get('/movies', authParameter, (req, res) => {
+app.get('/movies', (req, res) => {
     Movies.find()
         .then((movies) => res.status(201).json(movies))
         .catch((error) => {
@@ -142,7 +142,7 @@ app.put('/users/:id', authParameter,
     ],
     (req, res) => {
         if (req.user.id !== req.params.id) {
-            return res.status(401).send('Unauthorized.');
+            return res.status(403).send('Forbidden.');
         }
 
         let errors = validationResult(req);
