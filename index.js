@@ -131,6 +131,21 @@ app.post('/users',
             });
     });
 
+app.get('/users/:id', authParameter, (req, res) => {
+    if (req.user.id !== req.params.id) {
+        return res.status(401).send('Unauthorized.');
+    }
+    return Users.find({ _id: req.params.id })
+        .then((data) => {
+            let { password, ...cleanData } = data[0]._doc;
+            res.status(201).json(cleanData);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Error: ' + error);
+        });
+});
+
 app.put('/users/:id', authParameter,
     [
         check('name', 'Username has to have at least 5 characters.').trim().isLength({ min: 5 }).optional(),
