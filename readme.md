@@ -26,7 +26,7 @@ The project utilizes:
 |  POST    | /users                               | adds a new user                                 |
 |  PUT     | /users/\[ID\]                        | updates user data by user ID                    |
 |  POST    | /login                               | logs in user                                    |
-|  GET     | /users/\[ID\]                        | gets user data                                   |
+|  GET     | /users/                              | gets user data based on the user ID in JWT token|
 |  POST    | /users/\[userID\]/movies/\[movieID\] | adds a movie to a user's list of favorites      |
 |  DELETE  | /users/\[userID\]/movies/\[movieID\] | removes a movie from a user's list of favorites |
 |  DELETE  | /users/\[ID\]                        | removes a user by ID                            |

@@ -11,8 +11,8 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-// mongoose.connect('mongodb://127.0.0.1:27017/movieDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/movieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -131,11 +131,8 @@ app.post('/users',
             });
     });
 
-app.get('/users/:id', authParameter, (req, res) => {
-    if (req.user.id !== req.params.id) {
-        return res.status(401).send('Unauthorized.');
-    }
-    return Users.find({ _id: req.params.id })
+app.get('/users/', authParameter, (req, res) => {
+    Users.find({ _id: req.user.id })
         .then((data) => {
             let { password, ...cleanData } = data[0]._doc;
             res.status(201).json(cleanData);
