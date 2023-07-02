@@ -11,8 +11,8 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-mongoose.connect('mongodb://127.0.0.1:27017/movieDB', { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://127.0.0.1:27017/movieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -168,20 +168,27 @@ app.put('/users/:id', authParameter,
         // only the data included in the request should be updated, but the password must be hashed, if it exists
         let data = { ...rawData, ...(rawData.password ? { password : Users.hashPassword(rawData.password) } : {}) };
 
-        return Users.findOneAndUpdate(
-            { _id: userID },
-            { $set: data },
-            { new: true }) // to return updated document
-            .then((updatedUser) => {
-                if (!updatedUser) {
-                    return res.status(400).send('User not found.');
+        return Users.findOne({ 'name': data.name })
+            .then((user) => {
+                if (user) {
+                    res.status(400).send('Name ' + data.name + ' already taken.');
+                } else {
+                    Users.findOneAndUpdate(
+                        { _id: userID },
+                        { $set: data },
+                        { new: true }) // to return updated document
+                        .then((updatedUser) => {
+                            if (!updatedUser) {
+                                return res.status(400).send('User not found.');
+                            }
+                            let { password, ...cleanData } = updatedUser._doc;
+                            return res.status(200).json(cleanData);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            return res.status(500).send('Error: ' + error);
+                        });
                 }
-                let { password, ...cleanData } = updatedUser._doc;
-                return res.status(200).json(cleanData);
-            })
-            .catch((error) => {
-                console.log(error);
-                return res.status(500).send('Error: ' + error);
             });
     });
 
