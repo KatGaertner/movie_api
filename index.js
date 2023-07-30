@@ -26,8 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const cors = require('cors');
 const allowedOrigins = [
-    'http://localhost:8080', 'http://localhost:1234',
-    'https://effortless-cheesecake-150d46.netlify.app'
+    'http://localhost:8080', 'http://localhost:1234', 'https://myflix-27.netlify.app'
 ];
 
 app.use(cors(
